@@ -1,0 +1,33 @@
+.container {
+    padding-top: 25px;
+}
+.card-title {
+    padding-top: 10px;
+    text-align: center;
+}
+.card-body-data {
+    /* background-image: linear-gradient(rgba(0,156,222, 0.7), rgba(0,156,222, 0.7)),url("../../../assets/img/contact.png"); */
+    width: 100%;
+    height: 598px;
+}
+.card-body-data ul {
+    padding-top: 35%;
+    padding-left: 15%;
+}
+.card-body-data ul i {
+    padding-top: 20px;
+    padding-bottom: 12px;
+    text-align: center;
+    color: rgb(34, 49, 63);
+    
+}
+.card-body-data ul li {
+    text-decoration: none;
+    color: rgb(34, 49, 63);
+    font-size: 18px;
+    list-style: none;   
+    
+}
+.btn {
+    text-align: center;
+}
