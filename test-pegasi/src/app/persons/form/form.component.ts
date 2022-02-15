@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { throws } from 'assert';
 import { PersonModel } from 'src/app/models/person.model';
 import { PersonsService } from 'src/app/services/persons.service';
 import { ValidatorsService } from 'src/app/services/validators.service';
@@ -17,7 +16,7 @@ export class FormComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private validate: ValidatorsService,
-    private personService: PersonsService
+    private personServices: PersonsService
   ) {
     this.createPerson();
   }
@@ -66,10 +65,7 @@ export class FormComponent implements OnInit {
       age: ['', Validators.required],
       sex: ['', Validators.required],
       pregnant: ['', this.validate.noPregnant],
-      phone: [
-        '',
-        [Validators.required, Validators.pattern('[0-9]{3}-[0-9]{2}-[0-9]{3}')],
-      ],
+      phone: ['', [Validators.required]],
     });
   }
 
@@ -83,9 +79,10 @@ export class FormComponent implements OnInit {
   }
 
   savePerson() {
-    this.personService.createPerson(this.person).subscribe(response => {
-      console.log(response);
-    })
+    console.log(this.person);
+    this.personServices.createPerson(this.person).subscribe((response) => {
+      const {_id} = response.person;
+    });
   }
 
   saveData() {
@@ -96,6 +93,6 @@ export class FormComponent implements OnInit {
     }
 
     this.setData();
-    this.savePerson()
+    this.savePerson();
   }
 }
