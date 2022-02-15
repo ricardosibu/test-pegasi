@@ -1,8 +1,12 @@
-'use strict'
-
 const Person = require('../models/person');
 
-const personController = {
+const PersonController = {
+    main: function(req, res) {
+        return res.status(200).send({
+            message: 'activo el controller'
+        })
+    },
+
     personSave: function(req, res) {
         const person = new Person();
 
@@ -11,7 +15,7 @@ const personController = {
         person.surname = params.surname;
         person.age = params.age;
         person.sex = params.sex;
-        person.pregnant = paramas.pregnant;
+        person.pregnant = params.pregnant;
         person.phone = params.phone;
 
         person.save((err, personStored) => {
@@ -19,6 +23,16 @@ const personController = {
             if(!personStored) return res.status(404).send({message: "person don't exist"});
 
             return res.status(200).send({person: personStored});
+        })
+    },
+    getAllPerson(req, res) {
+        Person.find({}).exec((err, person) => {
+            if(err) return res.status(500).send({message: "Error response"});
+            if(!person) return res.status(404).send({message: "person don't exist"});
+
+            return res.status(200).send({
+                person
+            });
         })
     },
 
@@ -33,17 +47,6 @@ const personController = {
                 person
             });
         });
-    },
-
-    getAllPerson: function(req, res) {
-        Person.find({}).exec((err, person) => {
-            if(err) return res.status(500).send({message: "Error response"});
-            if(!person) return res.status(404).send({message: "person don't exist"});
-
-            return res.status(200).send({
-                person
-            });
-        })
     },
 
     updatePerson: function(req, res) {
@@ -72,6 +75,7 @@ const personController = {
             });
         });
     }
+
 }
 
-module.export = personController;
+module.exports = PersonController;
