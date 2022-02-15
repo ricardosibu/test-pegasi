@@ -6,6 +6,7 @@ import { PersonsModule } from './persons/persons.module';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { HttpClientModule } from '@angular/common/http';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -17,6 +18,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
+    HttpClientModule,
     PersonsModule,
     AppRoutingModule,
     NoopAnimationsModule,
