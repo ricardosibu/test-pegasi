@@ -1,3 +1,4 @@
+const boom = require('@hapi/boom');
 const Person = require('../models/person');
 
 const PersonController = {
@@ -20,7 +21,8 @@ const PersonController = {
 
         person.save((err, personStored) => {
             if(err) return res.status(500).send({message: "error save new person"});
-            if(!personStored) return res.status(404).send({message: "person don't exist"});
+            if(!personStored) throw boom.notFound('person not found');
+            // if(!personStored) return res.status(404).send({message: "person don't exist"});
 
             return res.status(200).send({person: personStored});
         })
@@ -28,7 +30,8 @@ const PersonController = {
     getAllPerson(req, res) {
         Person.find({}).exec((err, person) => {
             if(err) return res.status(500).send({message: "Error response"});
-            if(!person) return res.status(404).send({message: "person don't exist"});
+            if(!person) throw boom.notFound('person not found');
+            // if(!person) return res.status(404).send({message: "person don't exist"});
 
             return res.status(200).send({
                 person
@@ -41,7 +44,8 @@ const PersonController = {
 
         Person.findById(personId, (err, person) => {
             if(err) return res.status(500).send({message: "error in response"});
-            if(!person) return res.status(404).send({message: "person don't exist"});
+            if(!person) throw boom.notFound('person not found');
+            // if(!person) return res.status(404).send({message: "person don't exist"});
 
             return res.status(200).send({
                 person
@@ -55,7 +59,8 @@ const PersonController = {
 
         Person.findByIdAndUpdate(personId, update, (err, personUpdated) => {
             if(err) return res.status(500).send({message: "Error al devolver datos"});
-            if(!personUpdated) return res.status(404).send({message: "person don't exis"});
+            if(!personUpdated) throw boom.notFound('person not found');
+            // if(!personUpdated) return res.status(404).send({message: "person don't exis"});
 
             return res.status(200).send({
                 person: personUpdated
@@ -68,7 +73,8 @@ const PersonController = {
 
         Person.findByIdAndRemove(personId, (err, personRemoved) => {
             if(err) return res.status(500).send({message: "No se ha podido borrar el proyecto"});
-            if(!personRemoved) return res.status(404).send({message: "El paciente no existe"});
+            if(!personRemoved) throw boom.notFound('person not found');
+            // if(!personRemoved) return res.status(404).send({message: "El paciente no existe"});
 
             return res.status(200).send({
                 person: personRemoved

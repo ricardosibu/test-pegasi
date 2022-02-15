@@ -6,9 +6,13 @@ const app = express();
 //routes
 const person_routes = require('./routes/person');
 
+const { boomError } = require('./middlewares/error.handler');
+
 //middlewares
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
+app.use(boomError);
+
 
 //routes
 app.use('/api', person_routes);
