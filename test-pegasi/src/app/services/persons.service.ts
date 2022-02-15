@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { PersonModel } from '../models/person.model';
 
 @Injectable({
@@ -10,7 +11,9 @@ export class PersonsService {
 
   constructor(private http: HttpClient) { }
 
-  createPerson( person: PersonModel) {
-    // return this.http.post(`${url}/`)
+  createPerson( person: PersonModel): Observable<PersonModel> {
+    // return this.http.post(`${url}/`, person)
   }
+
+  // getPerson ()
 }
