@@ -14,7 +14,7 @@ export class FormComponent implements OnInit {
   formPerson: FormGroup;
   person = new PersonModel();
   ageSelect: number[];
-  validatePregnant: boolean = true
+  validatePregnant: boolean = true;
 
   constructor(
     private router: Router,
@@ -62,16 +62,14 @@ export class FormComponent implements OnInit {
 
   getPregnant() {
     const sexValue = this.formPerson.get('sex').value;
-    if(sexValue === 'male') {
-      this.formPerson.get('pregnant').disable()
+    if (sexValue === 'male') {
+      this.formPerson.get('pregnant').disable();
     } else {
-      this.formPerson.get('pregnant').enable()
+      this.formPerson.get('pregnant').enable();
     }
   }
 
-  sexSelected(value) {
-
-  } 
+  sexSelected(value) {}
 
   createPerson() {
     this.formPerson = this.fb.group({
@@ -89,20 +87,19 @@ export class FormComponent implements OnInit {
     this.person.surname = this.formPerson.value.surname;
     this.person.age = this.formPerson.value.age;
     this.person.sex = this.formPerson.value.sex;
-    this.person.pregnant = this.formPerson.value.pregnant;
+    this.person.pregnant = this.formPerson.value.pregnant
+      ? this.formPerson.value.pregnant
+      : false;
     this.person.phone = this.formPerson.value.phone;
   }
 
   savePerson() {
     try {
       this.personServices.createPerson(this.person).subscribe((response) => {
-        const {_id} = response.person;
-        this.router.navigate(['/welcome', _id])
+        const { _id } = response.person;
+        this.router.navigate(['/welcome', _id]);
       });
-    } catch (error) {
-      
-    }
-    
+    } catch (error) {}
   }
 
   saveData() {
