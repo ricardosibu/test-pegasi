@@ -6,6 +6,7 @@ import { FormComponent } from './persons/form/form.component';
 
 const routes: Routes = [
   { path: '', component: DashboardComponent},
+  { path: 'welcome/:id', component: DashboardComponent},
   { path: 'register', component: FormComponent},
   { path: '**', component: DashboardComponent}
 ];

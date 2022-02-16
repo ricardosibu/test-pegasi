@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PersonModel } from 'src/app/models/person.model';
 import { PersonsService } from 'src/app/services/persons.service';
@@ -12,8 +13,11 @@ import { ValidatorsService } from 'src/app/services/validators.service';
 export class FormComponent implements OnInit {
   formPerson: FormGroup;
   person = new PersonModel();
+  ageSelect: number[];
+  validatePregnant: boolean = true
 
   constructor(
+    private router: Router,
     private fb: FormBuilder,
     private validate: ValidatorsService,
     private personServices: PersonsService
@@ -56,7 +60,18 @@ export class FormComponent implements OnInit {
     );
   }
 
-  validatePregnant() {}
+  getPregnant() {
+    const sexValue = this.formPerson.get('sex').value;
+    if(sexValue === 'male') {
+      this.formPerson.get('pregnant').disable()
+    } else {
+      this.formPerson.get('pregnant').enable()
+    }
+  }
+
+  sexSelected(value) {
+
+  } 
 
   createPerson() {
     this.formPerson = this.fb.group({
@@ -64,7 +79,7 @@ export class FormComponent implements OnInit {
       surname: ['', [Validators.required, Validators.minLength(3)]],
       age: ['', Validators.required],
       sex: ['', Validators.required],
-      pregnant: ['', this.validate.noPregnant],
+      pregnant: ['', Validators.nullValidator],
       phone: ['', [Validators.required]],
     });
   }
@@ -79,10 +94,15 @@ export class FormComponent implements OnInit {
   }
 
   savePerson() {
-    console.log(this.person);
-    this.personServices.createPerson(this.person).subscribe((response) => {
-      const {_id} = response.person;
-    });
+    try {
+      this.personServices.createPerson(this.person).subscribe((response) => {
+        const {_id} = response.person;
+        this.router.navigate(['/welcome', _id])
+      });
+    } catch (error) {
+      
+    }
+    
   }
 
   saveData() {

@@ -3,7 +3,7 @@ const Schema = mongoose.Schema
 const PersonSchema = Schema({
     name: String,
     surname: String,
-    age: Number,
+    age: String,
     sex: String,
     pregnant: Boolean,
     phone: String
